@@ -3,6 +3,7 @@ import { Router } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ToastContainer } from 'react-toastify';
 
 import Routes from './routes';
 
@@ -26,6 +27,7 @@ const App = () => (
                 </Helmet>
                 <GlobalStyle />
                 <Routes />
+                <ToastContainer autoClose={3000} />
             </Router>
         </PersistGate>
     </Provider>
