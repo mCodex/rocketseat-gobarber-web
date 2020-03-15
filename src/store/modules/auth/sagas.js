@@ -3,11 +3,11 @@ import { toast } from 'react-toastify';
 import { signInSuccess, signFailure } from './actions';
 
 import history from '~/services/history';
-import axios from '~/services/api';
+import api from '~/services/api';
 
 export function* signIn({ payload: { email, password } }) {
     try {
-        const response = yield call(axios.post, 'sessions', {
+        const response = yield call(api.post, 'sessions', {
             email,
             password,
         });
@@ -20,6 +20,8 @@ export function* signIn({ payload: { email, password } }) {
             return;
         }
 
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+
         yield put(signInSuccess(token, user));
 
         history.push('/dashboard');
@@ -29,4 +31,36 @@ export function* signIn({ payload: { email, password } }) {
     }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+export function* signUp({ payload: { name, email, password } }) {
+    try {
+        yield call(api.post, 'users', {
+            name,
+            email,
+            password,
+            provider: true,
+        });
+
+        history.push('/');
+    } catch (ex) {
+        console.tron.log(ex);
+        toast.error('Falha no cadastro, verifique seus dados.');
+        yield put(signFailure());
+    }
+}
+
+export function setToken({ payload }) {
+    if (!payload) return;
+
+    const { token } = payload.auth;
+
+    if (!token) {
+        return;
+    }
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+}
+export default all([
+    takeLatest('@auth/persist/REHYDRATE', setToken),
+    takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+    takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+]);
