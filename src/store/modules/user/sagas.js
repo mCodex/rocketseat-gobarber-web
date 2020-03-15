@@ -7,12 +7,17 @@ import { updateProfileSuccess, updateProfileFailure } from './actions';
 
 export function* updateProfile({ payload }) {
     try {
-        const { name, email, ...rest } = payload;
+        const { name, email, avatar_id, ...rest } = payload;
 
-        const profile = { name, email, ...(rest.oldPassword ? rest : {}) };
+        const profile = {
+            name,
+            email,
+            avatar_id,
+            ...(rest.oldPassword ? rest : {}),
+        };
 
         const response = yield call(api.put, 'users', profile);
-        console.tron.log(response);
+
         toast.success('Perfil atualizado com sucesso');
 
         yield put(updateProfileSuccess(response.data));

@@ -11,7 +11,7 @@ const user = (state = initialState, action) => {
                 draft.profile = action.payload.user;
                 return draft;
             }
-            case '@auth/UPDATE_PROFILE_SUCCESS': {
+            case '@user/UPDATE_PROFILE_SUCCESS': {
                 draft.profile = action.payload.profile;
                 return draft;
             }
