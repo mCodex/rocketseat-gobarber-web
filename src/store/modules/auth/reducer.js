@@ -23,6 +23,11 @@ const auth = (state = initialState, action) => {
                 draft.loading = false;
                 return draft;
             }
+            case '@auth/SIGN_OUT': {
+                draft.token = null;
+                draft.signed = false;
+                return draft;
+            }
             default:
                 return state;
         }

@@ -15,6 +15,10 @@ const user = (state = initialState, action) => {
                 draft.profile = action.payload.profile;
                 return draft;
             }
+            case '@auth/SIGN_OUT': {
+                draft.profile = null;
+                return draft;
+            }
             default:
                 return state;
         }
