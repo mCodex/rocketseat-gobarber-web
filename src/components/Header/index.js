@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Container, Content, Profile } from './styles';
 
+import Notifications from '../Notifications';
+
 import coloredLogo from '~/assets/coloredLogo.svg';
 
 export default function() {
@@ -15,6 +17,7 @@ export default function() {
                 </nav>
 
                 <aside>
+                    <Notifications />
                     <Profile>
                         <div>
                             <strong>Mateus</strong>
