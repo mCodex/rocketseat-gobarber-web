@@ -1,5 +1,6 @@
-import React, { lazy,Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch } from 'react-router-dom';
+
 // import SignIn from '~/pages/Signin';
 // import SignUp from '~/pages/Signup';
 
@@ -18,11 +19,11 @@ export default function Routes() {
     return (
         <Switch>
             <Suspense fallback={<div/>}>
-                <Route path="/" exact component={SignIn} />
-                <Route path="/register" component={SignUp} />
+            <Route path="/" exact component={SignIn} />
+            <Route path="/register" component={SignUp} />
 
-                <Route path="/dashboard" component={Dashboard} isPrivate />
-                <Route path="/profile" component={Profile} isPrivate />
+            <Route path="/dashboard" component={Dashboard} isPrivate />
+            <Route path="/profile" component={Profile} isPrivate />
             </Suspense>
             {/* <Route path="/" component={() => <h1>404</h1>} /> */}
         </Switch>
